@@ -9,7 +9,7 @@ import { jwtConstants } from './jwt/constants';
 
 const passModule = PassportModule.register({ defaultStrategy: 'jwt' });
 const jwtModule = JwtModule.register({
-  secret: jwtConstants.secret,
+  secret: "12345",
   signOptions: { expiresIn: '4h' },
 });
 

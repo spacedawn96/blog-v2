@@ -12,14 +12,12 @@ import {
   HttpException,
   ClassSerializerInterceptor,
 } from '@nestjs/common';
-import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { RolesGuard, Roles } from '../auth/roles.guard';
 import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard';
 
-@ApiTags('User')
 @Controller('user')
 @UseGuards(RolesGuard)
 export class UserController {
@@ -29,8 +27,6 @@ export class UserController {
     private readonly jwtService: JwtService,
   ) {}
 
-  @ApiResponse({ status: 200, description: 'get all of users', type: [User] })
-  @ApiResponse({ status: 403, description: 'Not authorized to get user list' })
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   @Roles('admin')
@@ -39,7 +35,6 @@ export class UserController {
     return this.userService.findAll(query);
   }
 
-  @ApiResponse({ status: 201, description: 'Create user', type: [User] })
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
@@ -48,7 +43,10 @@ export class UserController {
     return saveUser;
   }
 
-  async checkPermission(req, user) {
+  async checkPermission(
+    req: { headers: { authorization: any } },
+    user: Partial<User>,
+  ) {
     let token = req.headers.authorization;
 
     if (!token) {
@@ -71,11 +69,6 @@ export class UserController {
     }
   }
 
-  @ApiResponse({
-    status: 200,
-    description: 'Update user successful',
-    type: [User],
-  })
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('update')
   @HttpCode(HttpStatus.CREATED)
@@ -85,11 +78,6 @@ export class UserController {
     return saveUser;
   }
 
-  @ApiResponse({
-    status: 201,
-    description: 'Update password successful',
-    type: [User],
-  })
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('password')
   @HttpCode(HttpStatus.CREATED)

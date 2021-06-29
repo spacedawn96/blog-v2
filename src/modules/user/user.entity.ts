@@ -6,7 +6,6 @@ import {
   UpdateDateColumn,
   BeforeInsert,
 } from 'typeorm';
-import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 import * as bcrypt from 'bcryptjs';
 
@@ -23,32 +22,25 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: number;
 
-  @ApiProperty()
   @Column({ length: 30 })
   name: string;
 
-  @ApiProperty()
   @Exclude()
   @Column({ length: 30 })
   password: string;
 
-  @ApiProperty()
   @Column({ length: 30, default: null })
   bio: string;
 
-  @ApiProperty()
   @Column({ length: 30, default: null })
   email: string;
 
-  @ApiProperty()
   @Column('simple-enum', { enum: ['admin', 'users'], default: 'users' })
   role: string;
 
-  @ApiProperty()
   @Column('simple-enum', { enum: ['locked', 'active'], default: 'active' })
   status: string;
 
-  @ApiProperty()
   @CreateDateColumn({
     type: 'datetime',
     comment: 'foundation time',
@@ -56,7 +48,6 @@ export class User {
   })
   createAt: Date;
 
-  @ApiProperty()
   @UpdateDateColumn({
     type: 'datetime',
     comment: 'renewal time',

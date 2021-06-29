@@ -22,7 +22,12 @@ export class UserService {
       });
   }
 
-  async findAll(queryParams): Promise<[User[], number]> {
+  async findAll(queryParams: {
+    [x: string]: any;
+    page?: 1 | undefined;
+    pageSize?: 12 | undefined;
+    status: any;
+  }): Promise<[User[], number]> {
     const query = this.userRepository
       .createQueryBuilder('user')
       .orderBy('user.createAt', 'DESC');
