@@ -22,17 +22,17 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: number;
 
-  @Column({ length: 30 })
+  @Column({ length: 300 })
   name: string;
 
   @Exclude()
-  @Column({ length: 30 })
+  @Column({ length: 300 })
   password: string;
 
-  @Column({ length: 30, default: null })
+  @Column({ length: 300, default: null })
   bio: string;
 
-  @Column({ length: 30, default: null })
+  @Column({ length: 300, default: null })
   email: string;
 
   @Column('simple-enum', { enum: ['admin', 'users'], default: 'users' })
