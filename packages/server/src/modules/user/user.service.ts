@@ -14,10 +14,10 @@ export class UserService {
     const name = this.configService.get('ADMIN_USER', 'admin');
     const password = this.configService.get('ADMIN_PASSWD', 'admin');
     this.createUser({ name, password, role: 'admin' })
-      .then((_) => {
+      .then(_ => {
         console.log('Administrator account created successfully');
       })
-      .catch((_) => {
+      .catch(_ => {
         console.log(`Administrator account already exists`);
       });
   }
@@ -43,7 +43,7 @@ export class UserService {
       }
 
       if (otherParams) {
-        Object.keys(otherParams).forEach((key) => {
+        Object.keys(otherParams).forEach(key => {
           query
             .andWhere(`user.${key} LIKE :${key}`)
             .setParameter(`${key}`, `%${otherParams[key]}%`);
@@ -79,10 +79,7 @@ export class UserService {
     const { name, password } = user;
     const existUser = await this.userRepository.findOne({ where: { name } });
 
-    if (
-      !existUser ||
-      !(await User.comparePassword(password, existUser.password))
-    ) {
+    if (!existUser || !(await User.comparePassword(password, existUser.password))) {
       throw new HttpException(
         'Username or password went to wrong',
         HttpStatus.BAD_REQUEST,
@@ -121,10 +118,7 @@ export class UserService {
     const existUser = await this.userRepository.findOne(id);
     const { oldPassword, newPassword } = user;
 
-    if (
-      !existUser ||
-      !(await User.comparePassword(oldPassword, existUser.password))
-    ) {
+    if (!existUser || !(await User.comparePassword(oldPassword, existUser.password))) {
       throw new HttpException(
         'Username or password went to wrong',
         HttpStatus.BAD_REQUEST,

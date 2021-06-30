@@ -43,14 +43,14 @@ export class User {
 
   @CreateDateColumn({
     type: 'datetime',
-    comment: 'foundation time',
+    comment: 'create_time',
     name: 'create_at',
   })
   createAt: Date;
 
   @UpdateDateColumn({
     type: 'datetime',
-    comment: 'renewal time',
+    comment: 'update_time',
     name: 'update_at',
   })
   updateAt: Date;
