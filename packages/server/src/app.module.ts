@@ -5,8 +5,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { User } from './modules/user/user.entity';
 
-
-const { file: envFilePath } = require('../config/.env');
+const { file: envFilePath } = require('../../../config/env');
 
 @Module({
   imports: [
@@ -16,23 +15,20 @@ const { file: envFilePath } = require('../config/.env');
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         type: 'mysql',
-        entities: [
-          User,
-         ],
-         host: 'localhost',
-         port: 3306,
-         username: 'root',
-         password: '1245',
-         database: 'blog',
+        entities: [User],
+        host: configService.get('DB_HOST', 'localhost'),
+        port: configService.get<number>('DB_PORT', 3306),
+        username: configService.get('DB_USER', 'root'),
+        password: configService.get('DB_PASSWD', '1245'),
+        database: configService.get('DB_DATABASE', 'blog'),
         charset: 'utf8mb4',
         timezone: '+08:00',
         synchronize: true,
       }),
     }),
     UserModule,
-   
+
     AuthModule,
-   
   ],
   controllers: [],
   providers: [],

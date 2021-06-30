@@ -17,6 +17,7 @@ import { UserService } from './user.service';
 import { User } from './user.entity';
 import { RolesGuard, Roles } from '../auth/roles.guard';
 import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard';
+import { RegisterResponseDto, RegisterRequestDto } from './dto/register.dto';
 
 @Controller('user')
 @UseGuards(RolesGuard)
@@ -38,15 +39,12 @@ export class UserController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
-  async register(@Body() user: Partial<User>): Promise<User> {
+  async register(@Body() user: RegisterRequestDto): Promise<RegisterResponseDto> {
     const saveUser = await this.userService.createUser(user);
     return saveUser;
   }
 
-  async checkPermission(
-    req: { headers: { authorization: any } },
-    user: Partial<User>,
-  ) {
+  async checkPermission(req: { headers: { authorization: any } }, user: Partial<User>) {
     let token = req.headers.authorization;
 
     if (!token) {
@@ -81,10 +79,7 @@ export class UserController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('password')
   @HttpCode(HttpStatus.CREATED)
-  async updatePassword(
-    @Request() req,
-    @Body() user: Partial<User>,
-  ): Promise<User> {
+  async updatePassword(@Request() req, @Body() user: Partial<User>): Promise<User> {
     await this.checkPermission(req, user);
     const saveUser = await this.userService.updatePassword(user.id, user);
     return saveUser;

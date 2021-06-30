@@ -4,9 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently \"yarn:dev:*\"",
+    "dev:server": "yarn --cwd packages/server dev"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "fs-extra": "^10.0.0"
+  },
+  "dependencies": {
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.4",
+    "concurrently": "^6.2.0"
+  }
 }
