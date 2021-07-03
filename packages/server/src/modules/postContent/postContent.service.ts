@@ -221,7 +221,7 @@ export class PostContentService {
 
   async updateById(id, postContent: Partial<PostContent>): Promise<PostContent> {
     const oldPostContent = await this.postContentRepository.findOne(id);
-    let { tags, category, status } = postContent; // eslint-disable-line prefer-const
+    let { tags, category, status } = postContent;
 
     if (tags) {
       tags = await this.tagService.findByIds(('' + tags).split(','));
@@ -337,7 +337,7 @@ export class PostContentService {
         }
         query.setParameter(paramKey, `%${kw.w}%`);
       });
-    } catch (e) {} // eslint-disable-line no-empty
+    } catch (e) {}
 
     const data = await query.getMany();
     return data.filter(d => d.id !== postContentId && d.status === 'publish');
