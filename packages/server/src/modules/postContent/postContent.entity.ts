@@ -31,6 +31,9 @@ export class PostContent {
   @Column({ type: 'mediumtext', default: null, charset: 'utf8mb4' })
   html: string;
 
+  @Column({ type: 'text', default: null, select: false })
+  password: string;
+
   @ManyToOne(() => Category, category => category.contents, { cascade: true })
   @JoinTable()
   category: Category;
@@ -50,6 +53,9 @@ export class PostContent {
 
   @Column({ type: 'boolean', default: true })
   isCommentable: boolean;
+
+  @Column({ type: 'boolean', default: false })
+  needPassword: boolean;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   publishAt: Date;

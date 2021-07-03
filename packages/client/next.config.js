@@ -1,3 +1,10 @@
 module.exports = {
-  reactStrictMode: true,
-}
+  async rewrites() {
+    return [
+      {
+        source: '/users/:path*',
+        destination: 'https://localhost:4000/:path*',
+      },
+    ];
+  },
+};

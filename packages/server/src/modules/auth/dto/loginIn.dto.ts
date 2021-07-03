@@ -1,5 +1,13 @@
-import { User } from 'src/modules/user/user.entity';
-
+import { IsDefined, IsEmail, IsNotEmpty, IsString } from 'class-validator';
 export class LoginRequest {
-  user: User;
+  @IsNotEmpty()
+  name: number;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
 }

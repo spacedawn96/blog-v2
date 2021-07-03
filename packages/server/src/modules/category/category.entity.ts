@@ -16,6 +16,9 @@ export class Category {
   @Column()
   label: string;
 
+  @Column()
+  value: string;
+
   @OneToMany(() => PostContent, content => content.category)
   contents: Array<PostContent>;
 

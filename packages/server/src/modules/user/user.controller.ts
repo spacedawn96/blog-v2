@@ -31,8 +31,8 @@ export class UserController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
-  @Roles('admin')
-  @UseGuards(JwtAuthGuard)
+  // @Roles('admin')
+  // @UseGuards(JwtAuthGuard)
   findAll(@Query() query) {
     return this.userService.findAll(query);
   }
