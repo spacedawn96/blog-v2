@@ -1,0 +1,33 @@
+[2021-07-06T09:53:34.696] [ERROR] error - / { statusCode: 404, msg: 'Cannot GET /', success: false, data: null }
+[2021-07-06T09:53:34.834] [ERROR] error - /favicon.ico {
+  statusCode: 404,
+  msg: 'Cannot GET /favicon.ico',
+  success: false,
+  data: null
+}
+[2021-07-06T09:53:57.173] [ERROR] error - /api { statusCode: 404, msg: 'Cannot GET /api', success: false, data: null }
+[2021-07-06T09:55:02.753] [ERROR] error - /api/graphql {
+  statusCode: 404,
+  msg: 'Cannot GET /api/graphql',
+  success: false,
+  data: null
+}
+[2021-07-06T09:56:34.539] [ERROR] error - / { statusCode: 404, msg: 'Cannot GET /', success: false, data: null }
+[2021-07-06T09:56:34.636] [ERROR] error - /favicon.ico {
+  statusCode: 404,
+  msg: 'Cannot GET /favicon.ico',
+  success: false,
+  data: null
+}
+[2021-07-06T09:56:37.186] [ERROR] error - /grpahgql {
+  statusCode: 404,
+  msg: 'Cannot GET /grpahgql',
+  success: false,
+  data: null
+}
+[2021-07-06T11:11:37.654] [ERROR] error - /api/graphql {
+  statusCode: 404,
+  msg: 'Cannot GET /api/graphql',
+  success: false,
+  data: null
+}

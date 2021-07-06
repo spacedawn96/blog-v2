@@ -21,35 +21,10 @@ export class UserService {
         console.log(`Administrator account already exists`);
       });
   }
-
-  async findAll(queryParams: {
-    [x: string]: any;
-    page?: 1 | undefined;
-    pageSize?: 12 | undefined;
-    status: any;
-  }): Promise<[User[], number]> {
+  async findAll(): Promise<[User[], number]> {
     const query = this.userRepository
       .createQueryBuilder('user')
       .orderBy('user.createAt', 'DESC');
-
-    if (typeof queryParams === 'object') {
-      const { page = 1, pageSize = 12, status, ...otherParams } = queryParams;
-
-      query.skip((+page - 1) * +pageSize);
-      query.take(+pageSize);
-
-      if (status) {
-        query.andWhere('user.status=:status').setParameter('status', status);
-      }
-
-      if (otherParams) {
-        Object.keys(otherParams).forEach(key => {
-          query
-            .andWhere(`user.${key} LIKE :${key}`)
-            .setParameter(`${key}`, `%${otherParams[key]}%`);
-        });
-      }
-    }
 
     return query.getManyAndCount();
   }

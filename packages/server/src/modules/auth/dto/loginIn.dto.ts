@@ -1,13 +1,14 @@
 import { IsDefined, IsEmail, IsNotEmpty, IsString } from 'class-validator';
-export class LoginRequest {
-  @IsNotEmpty()
-  name: number;
+import { ObjectType, Field } from '@nestjs/graphql';
 
-  @IsString()
+@ObjectType()
+export class LoginResponse {
   @IsNotEmpty()
-  password: string;
+  @Field(type => String, { nullable: true })
+  name: number;
 
   @IsEmail()
   @IsNotEmpty()
+  @Field(type => String, { nullable: true })
   email: string;
 }

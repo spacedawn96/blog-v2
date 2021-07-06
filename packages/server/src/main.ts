@@ -6,23 +6,26 @@ import { TransformInterceptor } from './transform.interceptor';
 import { HttpExceptionFilter } from './http-exception.filter';
 import { AppModule } from './app.module';
 
+const prod = process.env.NODE_ENV === 'production';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
-  app.setGlobalPrefix('/api');
 
-  app.use(
-    rateLimit({
-      windowMs: 60 * 1000,
-      max: 1000,
-    }),
-  );
+  if (prod) {
+    app.use(
+      rateLimit({
+        windowMs: 60 * 1000,
+        max: 1000,
+      }),
+    );
 
-  app.use(compression());
-  app.use(helmet());
-  app.useGlobalInterceptors(new TransformInterceptor());
-  app.useGlobalFilters(new HttpExceptionFilter());
+    app.use(compression());
+    app.use(helmet());
+    app.useGlobalInterceptors(new TransformInterceptor());
+    app.useGlobalFilters(new HttpExceptionFilter());
+  }
 
-  await app.listen(process.env.PORT || 4000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();

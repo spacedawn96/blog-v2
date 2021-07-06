@@ -11,22 +11,24 @@ import {
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt/jwt-auth.guard';
 import { Roles } from './roles.guard';
+import { Resolver, Mutation, Args, Context } from '@nestjs/graphql';
+import { LoginResponse } from './dto/loginIn.dto';
 
-@Controller('auth')
-export class AuthController {
+@Resolver()
+export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Post('login')
   @HttpCode(HttpStatus.OK)
+  @Mutation(returns => LoginResponse)
   async login(@Body() user) {
     const res = await this.authService.login(user);
     return res;
   }
 
-  @Post('admin')
   @Roles('admin')
   @UseGuards(JwtAuthGuard)
+  @Mutation(returns => LoginResponse)
   createBook() {
     return this.authService.checkAdmin();
   }

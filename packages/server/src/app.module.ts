@@ -4,12 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { User } from './modules/user/user.entity';
-import { Category } from './modules/category/category.entity';
-import { Tag } from './modules/tag/tag.entity';
-import { PostContent } from './modules/postContent/postContent.entity';
-import { TagModule } from './modules/tag/tag.module';
-import { CategoryModule } from './modules/category/category.module';
-import { PostContentModule } from './modules/postContent/postContent.module';
+import { GraphQLModule } from '@nestjs/graphql';
 
 // const { file: envFilePath } = require('../../../config/env');
 
@@ -21,7 +16,8 @@ import { PostContentModule } from './modules/postContent/postContent.module';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         type: 'mysql',
-        entities: [User, Category, Tag, PostContent],
+        entities: [User],
+
         host: configService.get('DB_HOST', 'localhost'),
         port: configService.get<number>('DB_PORT', 3306),
         username: configService.get('DB_USER', 'root'),
@@ -33,10 +29,10 @@ import { PostContentModule } from './modules/postContent/postContent.module';
         synchronize: true,
       }),
     }),
+    GraphQLModule.forRoot({
+      autoSchemaFile: true,
+    }),
     UserModule,
-    PostContentModule,
-    TagModule,
-    CategoryModule,
     AuthModule,
   ],
   controllers: [],

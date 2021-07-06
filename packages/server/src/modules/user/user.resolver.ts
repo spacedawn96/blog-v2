@@ -4,7 +4,6 @@ import {
   HttpStatus,
   HttpCode,
   Post,
-  Query,
   Body,
   Request,
   UseGuards,
@@ -19,28 +18,32 @@ import { RolesGuard, Roles } from '../auth/roles.guard';
 import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard';
 import { RegisterResponseDto, RegisterRequestDto } from './dto/register.dto';
 import { UpdateUserinfoRequest, UpdatePasswordRequest } from './dto/modifyUserinfo.dto';
+import { Resolver, Mutation, Query, Args, Directive } from '@nestjs/graphql';
+import { GetUserInfoResponse } from './dto/getUserInfo.dto';
+import { User as UserDeocorator, UserToken } from 'src/user.decorator';
 
-@Controller('user')
+@Resolver()
 @UseGuards(RolesGuard)
-export class UserController {
+export class UserResolver {
   constructor(
     private readonly userService: UserService,
-
     private readonly jwtService: JwtService,
   ) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Get()
-  // @Roles('admin')
-  // @UseGuards(JwtAuthGuard)
-  findAll(@Query() query) {
-    return this.userService.findAll(query);
+  @Roles('admin')
+  @UseGuards(JwtAuthGuard)
+  @Query(() => GetUserInfoResponse)
+  async findAll(): Promise<[User[], number]> {
+    const users = await this.userService.findAll();
+
+    return users;
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Post('register')
   @HttpCode(HttpStatus.CREATED)
-  async register(@Body() user: RegisterRequestDto): Promise<RegisterResponseDto> {
+  @Mutation(() => RegisterResponseDto)
+  async register(@Args() user: RegisterRequestDto): Promise<RegisterResponseDto> {
     const saveUser = await this.userService.createUser(user);
     return saveUser;
   }
@@ -69,21 +72,24 @@ export class UserController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Post('update')
   @HttpCode(HttpStatus.CREATED)
-  async update(@Request() req, @Body() user: UpdateUserinfoRequest): Promise<User> {
+  @Mutation(() => GetUserInfoResponse)
+  async update(
+    @Request() req,
+    @Args() user: UpdateUserinfoRequest,
+  ): Promise<GetUserInfoResponse> {
     await this.checkPermission(req, user);
     const saveUser = await this.userService.updateById(user.id, user);
     return saveUser;
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Post('password')
   @HttpCode(HttpStatus.CREATED)
+  @Mutation(() => GetUserInfoResponse)
   async updatePassword(
     @Request() req,
-    @Body() user: UpdatePasswordRequest,
-  ): Promise<User> {
+    @Args() user: UpdatePasswordRequest,
+  ): Promise<GetUserInfoResponse> {
     await this.checkPermission(req, user);
     const saveUser = await this.userService.updatePassword(user.id, user);
     return saveUser;

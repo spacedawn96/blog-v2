@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
+  Index,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import * as bcrypt from 'bcryptjs';
@@ -20,7 +21,7 @@ export class User {
   }
 
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column({ length: 300 })
   name: string;
@@ -32,8 +33,15 @@ export class User {
   @Column({ length: 300, default: null })
   bio: string;
 
+  @Index()
   @Column({ length: 300, default: null })
   email: string;
+
+  @Column({ default: false })
+  email_verified!: boolean;
+
+  @Column('int', { default: 0 })
+  tokenVersion!: number;
 
   @Column('simple-enum', { enum: ['admin', 'users'], default: 'users' })
   role: string;
