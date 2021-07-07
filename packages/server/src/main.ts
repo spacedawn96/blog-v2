@@ -2,8 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import * as rateLimit from 'express-rate-limit';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
-import { TransformInterceptor } from './transform.interceptor';
-import { HttpExceptionFilter } from './http-exception.filter';
+import { TransformInterceptor } from './modules/common/interceptors/transform.interceptor';
+import { HttpExceptionFilter } from './modules/common/filters/http-exception.filter';
 import { AppModule } from './app.module';
 
 const prod = process.env.NODE_ENV === 'production';

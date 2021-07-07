@@ -23,6 +23,8 @@ export class AuthService {
       email: data.email,
       role: data.role,
     });
+
+    console.log(Object.assign(data, { token }));
     return Object.assign(data, { token });
   }
 

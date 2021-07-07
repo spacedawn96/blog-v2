@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt/jwt-auth.guard';
 import { Roles } from './roles.guard';
 import { Resolver, Mutation, Args, Context } from '@nestjs/graphql';
-import { LoginResponse } from './dto/loginIn.dto';
+import { LoginResponse, LoginRequest } from './dto/loginIn.dto';
 
 @Resolver()
 export class AuthResolver {
@@ -21,7 +21,7 @@ export class AuthResolver {
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.OK)
   @Mutation(returns => LoginResponse)
-  async login(@Body() user) {
+  async login(@Args('input') user: LoginRequest) {
     const res = await this.authService.login(user);
     return res;
   }

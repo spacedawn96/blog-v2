@@ -20,7 +20,6 @@ import { RegisterResponseDto, RegisterRequestDto } from './dto/register.dto';
 import { UpdateUserinfoRequest, UpdatePasswordRequest } from './dto/modifyUserinfo.dto';
 import { Resolver, Mutation, Query, Args, Directive } from '@nestjs/graphql';
 import { GetUserInfoResponse } from './dto/getUserInfo.dto';
-import { User as UserDeocorator, UserToken } from 'src/user.decorator';
 
 @Resolver()
 @UseGuards(RolesGuard)
@@ -43,7 +42,7 @@ export class UserResolver {
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.CREATED)
   @Mutation(() => RegisterResponseDto)
-  async register(@Args() user: RegisterRequestDto): Promise<RegisterResponseDto> {
+  async register(@Args('input') user: RegisterRequestDto): Promise<RegisterResponseDto> {
     const saveUser = await this.userService.createUser(user);
     return saveUser;
   }
@@ -76,7 +75,7 @@ export class UserResolver {
   @Mutation(() => GetUserInfoResponse)
   async update(
     @Request() req,
-    @Args() user: UpdateUserinfoRequest,
+    @Args('input') user: UpdateUserinfoRequest,
   ): Promise<GetUserInfoResponse> {
     await this.checkPermission(req, user);
     const saveUser = await this.userService.updateById(user.id, user);
@@ -88,7 +87,7 @@ export class UserResolver {
   @Mutation(() => GetUserInfoResponse)
   async updatePassword(
     @Request() req,
-    @Args() user: UpdatePasswordRequest,
+    @Args('input') user: UpdatePasswordRequest,
   ): Promise<GetUserInfoResponse> {
     await this.checkPermission(req, user);
     const saveUser = await this.userService.updatePassword(user.id, user);

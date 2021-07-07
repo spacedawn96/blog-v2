@@ -2,7 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import { IsAdminOrUser, User } from './user.entity';
 
 @Injectable()
 export class UserService {
@@ -13,7 +13,7 @@ export class UserService {
   ) {
     const name = this.configService.get('ADMIN_USER', 'admin');
     const password = this.configService.get('ADMIN_PASSWD', 'admin');
-    this.createUser({ name, password, role: 'admin' })
+    this.createUser({ name, password, role: IsAdminOrUser.ADMIN })
       .then(_ => {
         console.log('Administrator account created successfully');
       })
@@ -47,6 +47,7 @@ export class UserService {
 
     const newUser = await this.userRepository.create(user);
     await this.userRepository.save(newUser);
+    console.log(newUser);
     return newUser;
   }
 

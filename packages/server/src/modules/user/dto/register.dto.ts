@@ -18,10 +18,11 @@ export class RegisterRequestDto {
   @IsNotEmpty()
   email: string;
 }
+
 @ObjectType()
 export class RegisterResponseDto {
   @Field()
-  id?: string;
+  id: string;
 
   @Field()
   @IsString()
@@ -32,4 +33,8 @@ export class RegisterResponseDto {
   @IsString()
   @IsNotEmpty()
   email: string;
+
+  @Field(_type => String, { nullable: true })
+  @IsString()
+  password: string;
 }
