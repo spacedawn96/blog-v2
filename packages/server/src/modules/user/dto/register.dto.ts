@@ -22,7 +22,7 @@ export class RegisterRequestDto {
 @ObjectType()
 export class RegisterResponseDto {
   @Field()
-  id: string;
+  id: number;
 
   @Field()
   @IsString()

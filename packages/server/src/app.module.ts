@@ -17,7 +17,6 @@ import { GraphQLModule } from '@nestjs/graphql';
       useFactory: async (configService: ConfigService) => ({
         type: 'mysql',
         entities: [User],
-
         host: configService.get('DB_HOST', 'localhost'),
         port: configService.get<number>('DB_PORT', 3306),
         username: configService.get('DB_USER', 'root'),
@@ -27,11 +26,14 @@ import { GraphQLModule } from '@nestjs/graphql';
         charset: 'utf8mb4',
         timezone: '+08:00',
         synchronize: true,
+        keepConnectionAlive: true,
       }),
     }),
     GraphQLModule.forRoot({
-      autoSchemaFile: true,
-      context: ({ req }) => ({ req }),
+      autoSchemaFile: 'schema.gql',
+      sortSchema: true,
+      context: ({ req }) => ({ headers: req.headers }),
+      playground: true,
     }),
     UserModule,
     AuthModule,

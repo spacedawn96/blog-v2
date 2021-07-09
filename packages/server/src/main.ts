@@ -1,31 +1,26 @@
 import { NestFactory } from '@nestjs/core';
-import * as rateLimit from 'express-rate-limit';
-import * as compression from 'compression';
-import * as helmet from 'helmet';
-import { TransformInterceptor } from './modules/common/interceptors/transform.interceptor';
 import { HttpExceptionFilter } from './modules/common/filters/http-exception.filter';
 import { AppModule } from './app.module';
-
-const prod = process.env.NODE_ENV === 'production';
+import { TimeoutInterceptor } from './modules/common/interceptors/timeout.interceptor';
+import { LoggingInterceptor } from './modules/common/interceptors/logging.interceptor';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
 
-  if (prod) {
-    app.use(
-      rateLimit({
-        windowMs: 60 * 1000,
-        max: 1000,
-      }),
-    );
+  app.useGlobalInterceptors(new TimeoutInterceptor(), new LoggingInterceptor());
+  // app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    }),
+  );
 
-    app.use(compression());
-    app.use(helmet());
-    app.useGlobalInterceptors(new TransformInterceptor());
-    app.useGlobalFilters(new HttpExceptionFilter());
-  }
-
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(process.env.PORT || 4000);
 }
 bootstrap();

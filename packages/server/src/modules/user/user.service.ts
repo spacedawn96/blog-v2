@@ -1,7 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
-import { Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import { IsAdminOrUser, User } from './user.entity';
 
 @Injectable()
@@ -21,12 +21,11 @@ export class UserService {
         console.log(`Administrator account already exists`);
       });
   }
-  async findAll(): Promise<[User[], number]> {
-    const query = this.userRepository
-      .createQueryBuilder('user')
-      .orderBy('user.createAt', 'DESC');
+  async findAll(): Promise<User[]> {
+    const user = getRepository(User);
+    const users = await user.find();
 
-    return query.getManyAndCount();
+    return users;
   }
 
   async createUser(user: Partial<User>): Promise<User> {
@@ -47,7 +46,6 @@ export class UserService {
 
     const newUser = await this.userRepository.create(user);
     await this.userRepository.save(newUser);
-    console.log(newUser);
     return newUser;
   }
 

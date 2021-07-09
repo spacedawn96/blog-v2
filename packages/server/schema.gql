@@ -1,0 +1,72 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type GetUserInfoResponse {
+  email: String!
+  id: Int!
+  name: String!
+}
+
+input LoginRequest {
+  email: String!
+  name: String!
+  password: String!
+}
+
+type LoginResponse {
+  email: String!
+  id: Int!
+  name: String!
+  token: String!
+}
+
+type Mutation {
+  createBook: LoginResponse!
+  login(input: LoginRequest!): LoginResponse!
+  register(input: RegisterRequestDto!): RegisterResponseDto!
+  update(input: UpdateUserinfoRequest!): GetUserInfoResponse!
+  updatePassword(input: UpdatePasswordRequest!): GetUserInfoResponse!
+}
+
+type Query {
+  findAll: [User!]!
+  me: User!
+}
+
+input RegisterRequestDto {
+  email: String!
+  name: String!
+  password: String!
+}
+
+type RegisterResponseDto {
+  email: String!
+  id: Float!
+  name: String!
+  password: String
+}
+
+input UpdatePasswordRequest {
+  id: Int!
+  newPassword: String!
+  oldPassword: String!
+}
+
+input UpdateUserinfoRequest {
+  bio: String!
+  id: Int!
+  name: String!
+}
+
+type User {
+  bio: String!
+  email: String!
+  email_verified: Boolean!
+  id: Int
+  name: String
+  password: String!
+  role: String!
+  status: String!
+  tokenVersion: Int!
+}

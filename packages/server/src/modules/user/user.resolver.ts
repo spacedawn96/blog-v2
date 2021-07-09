@@ -18,24 +18,31 @@ import { RolesGuard, Roles } from '../auth/roles.guard';
 import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard';
 import { RegisterResponseDto, RegisterRequestDto } from './dto/register.dto';
 import { UpdateUserinfoRequest, UpdatePasswordRequest } from './dto/modifyUserinfo.dto';
-import { Resolver, Mutation, Query, Args, Directive } from '@nestjs/graphql';
+import { Resolver, Mutation, Query, Args, Directive, Context } from '@nestjs/graphql';
 import { GetUserInfoResponse } from './dto/getUserInfo.dto';
+import { CurrentUser } from '../common/decorators/user.decorator';
+import { AuthGuard } from '../auth/auth.gaurd';
 
-@Resolver()
-@UseGuards(RolesGuard)
+@Resolver(of => User)
 export class UserResolver {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
 
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Roles('admin')
-  @UseGuards(JwtAuthGuard)
-  @Query(() => GetUserInfoResponse)
-  async findAll(): Promise<[User[], number]> {
-    const users = await this.userService.findAll();
+  @Query(() => User)
+  @UseGuards(new AuthGuard())
+  me(@Context('user') user: User) {
+    console.log(user);
+    return user;
+  }
 
+  // @UseInterceptors(ClassSerializerInterceptor)
+  // @Roles('admin')
+  // @UseGuards(JwtAuthGuard)
+  @Query(() => [User])
+  async findAll(): Promise<User[]> {
+    const users = await this.userService.findAll();
     return users;
   }
 

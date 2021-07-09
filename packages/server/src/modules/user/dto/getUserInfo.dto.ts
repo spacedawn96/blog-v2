@@ -1,19 +1,14 @@
 import { IsDefined, IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class GetUserInfoResponse {
-  @Field()
-  @IsNotEmpty()
-  id: string;
+  @Field(() => Int)
+  id: number;
 
   @Field()
-  @IsString()
-  @IsNotEmpty()
   name: string;
 
   @Field()
-  @IsEmail()
-  @IsNotEmpty()
   email: string;
 }

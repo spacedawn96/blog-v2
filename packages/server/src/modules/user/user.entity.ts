@@ -23,29 +23,29 @@ export enum IsActiveOrLocked {
 }
 
 @ObjectType()
-@Entity('USER')
+@Entity()
 export class User {
-  @Field(() => ID)
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @Field(() => Int, { nullable: true })
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @Field(type => String)
-  @Column({ length: 300 })
+  @Field(type => String, { nullable: true })
+  @Column({ length: 200 })
   name: string;
 
   @Field(type => String)
   @Exclude()
-  @Column({ length: 300 })
+  @Column({ length: 200 })
   password: string;
 
   @Field(type => String)
-  @Column({ length: 300, default: null })
+  @Column({ length: 200, default: null })
   bio: string;
 
   @Field(type => String)
   @Index()
   @IsEmail()
-  @Column({ length: 300, default: null })
+  @Column({ length: 200, default: null })
   email: string;
 
   @Field(type => Boolean)
@@ -56,13 +56,13 @@ export class User {
   @Column('int', { default: 0 })
   tokenVersion!: number;
 
-  @Field(type => IsAdminOrUser)
+  @Field(type => String)
   @Column({ type: 'enum', enum: IsAdminOrUser, default: IsAdminOrUser.USERS })
-  role: IsAdminOrUser;
+  role: string;
 
-  @Field(type => IsActiveOrLocked)
+  @Field(type => String)
   @Column({ type: 'enum', enum: IsActiveOrLocked, default: IsActiveOrLocked.ACTIVE })
-  status: IsActiveOrLocked;
+  status: string;
 
   @CreateDateColumn({
     type: 'datetime',

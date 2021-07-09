@@ -3,9 +3,9 @@ import { InputType, Field, Int } from '@nestjs/graphql';
 
 @InputType()
 export class UpdatePasswordRequest {
-  @Field()
+  @Field(() => Int)
   @IsNotEmpty()
-  id: string;
+  id: number;
 
   @Field()
   @IsString()
@@ -20,9 +20,9 @@ export class UpdatePasswordRequest {
 
 @InputType()
 export class UpdateUserinfoRequest {
-  @Field()
+  @Field(() => Int)
   @IsNotEmpty()
-  id: string;
+  id: number;
 
   @Field()
   @IsString()
