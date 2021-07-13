@@ -7,11 +7,11 @@ import { getUsersQuery } from '../../../lib/graphql/users';
 const endpoint = process.env.ENDPOINT;
 const graphQLClient = new GraphQLClient(endpoint);
 
-export const fetchPosts = async (): Promise<any[]> => {
+export const fetchUsers = async (): Promise<any[]> => {
   const response = await graphQLClient.request(getUsersQuery);
   return response;
 };
 
-export default function usePosts() {
-  return useQuery<any[], ClientError>('findAll', fetchPosts);
+export default function useUsers() {
+  return useQuery<any[], ClientError>('findAll', fetchUsers);
 }

@@ -2,6 +2,51 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Article {
+  category: [Category!]
+  content: String!
+  cover: String!
+  html: String!
+  summary: String!
+  tags: [Tag!]
+  title: String!
+  toc: String!
+}
+
+type Category {
+  articles: Article!
+  id: Int
+  label: String!
+  value: String!
+}
+
+input CreateArticleRequest {
+  category: String!
+  status: String!
+  tags: [String!]!
+  title: String!
+}
+
+input CreateCategoryRequest {
+  label: String!
+  value: String!
+}
+
+input CreateTagRequest {
+  label: String!
+  value: String!
+}
+
+input FindCategoryRequest {
+  label: String!
+  value: String!
+}
+
+input FindTagRequest {
+  label: String!
+  value: String!
+}
+
 type GetUserInfoResponse {
   email: String!
   id: Int!
@@ -22,16 +67,39 @@ type LoginResponse {
 }
 
 type Mutation {
+  checkPasswordArticle(id: Int!): Article!
+  createArticle(input: CreateArticleRequest!): Article!
   createBook: LoginResponse!
+  createCategory(input: CreateCategoryRequest!): Category!
+  createTag(input: CreateTagRequest!): Tag!
+  deleteByIdArticle(id: Int!): Article!
+  deleteByIdCategory(id: Int!): Category!
+  deleteByIdTag(id: Int!): Tag!
   login(input: LoginRequest!): LoginResponse!
   register(input: RegisterRequestDto!): RegisterResponseDto!
   update(input: UpdateUserinfoRequest!): GetUserInfoResponse!
+  updateByIdArticle(id: Int!): Article!
+  updateByIdCategory(id: Int!): Category!
+  updateByIdTag(id: Int!): Tag!
+  updateLikesByIdArticle(id: Int!): Article!
   updatePassword(input: UpdatePasswordRequest!): GetUserInfoResponse!
+  updateViewsByIdArticle(id: Int!): Article!
 }
 
 type Query {
   findAll: [User!]!
+  findAllArticle: [Article!]!
+  findAllCategory(input: FindCategoryRequest!): [Category!]!
+  findAllTag(input: FindTagRequest!): [Tag!]!
+  findArticlesByCategoryArticle(id: Int!): [Article!]!
+  findArticlesByTagArticle(id: Int!): [Article!]!
+  findByIdCategory(id: Int!): [Category!]!
+  findByIdTag(id: Int!): [Tag!]!
+  getArchivesArticle: [Article!]!
+  getArticleByIdTag(id: Int!): [Tag!]!
+  getRecommendArticlesArticle: [Article!]!
   me: User!
+  recommendArticle(articleId: Int!): [Article!]!
 }
 
 input RegisterRequestDto {
@@ -45,6 +113,13 @@ type RegisterResponseDto {
   id: Float!
   name: String!
   password: String
+}
+
+type Tag {
+  articles: Article!
+  id: Int
+  label: String!
+  value: String!
 }
 
 input UpdatePasswordRequest {

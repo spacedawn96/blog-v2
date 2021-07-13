@@ -32,8 +32,7 @@ export class UserResolver {
 
   @Query(() => User)
   @UseGuards(new AuthGuard())
-  me(@Context('user') user: User) {
-    console.log(user);
+  async me(@Context('user') user: User) {
     return user;
   }
 
@@ -45,9 +44,6 @@ export class UserResolver {
     const users = await this.userService.findAll();
     return users;
   }
-
-
-
 
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.CREATED)
