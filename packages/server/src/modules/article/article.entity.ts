@@ -16,65 +16,73 @@ import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 @Entity()
 export class Article {
   @PrimaryGeneratedColumn('uuid')
-  id?: string;
+  id: string;
 
   @Field(type => String)
   @Column()
-  title?: string;
+  title: string;
 
   @Field(type => String)
   @Column({ default: null })
-  cover?: string;
+  cover: string;
 
   @Field(type => String)
   @Column({ type: 'text', default: null })
-  summary?: string;
+  summary: string;
 
   @Field(type => String)
   @Column({ type: 'mediumtext', default: null, charset: 'utf8mb4' })
-  content?: string;
+  content: string;
 
   @Field(type => String)
   @Column({ type: 'mediumtext', default: null, charset: 'utf8mb4' })
-  html?: string;
+  html: string;
 
   @Field(type => String)
   @Column({ type: 'mediumtext', default: null })
-  toc?: string;
+  toc: string;
 
-  @Field(type => [Category], { nullable: true })
+  @Field(type => String)
+  @Column('simple-enum', { enum: ['draft', 'publish'] })
+  status?: string;
+
+  @Field(type => String)
+  @Column({ type: 'int', default: 0 })
+  views?: number;
+
+  @Field(type => Int)
+  @Column({ type: 'int', default: 0 })
+  likes?: number;
+
+  @Field(type => Boolean)
+  @Column({ type: 'boolean', default: false })
+  isRecommended?: boolean;
+
+  @Field(type => String)
+  @Column({ type: 'text', default: null, select: false })
+  password?: string;
+
+  @Field(type => Boolean)
+  @Column({ type: 'boolean', default: false })
+  needPassword?: boolean;
+
+  @Field(type => Boolean)
+  @Column({ type: 'boolean', default: true })
+  isCommentable?: boolean;
+
+  @Field(type => String)
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  publishAt?: Date;
+
+  @Field(type => Category)
   @ManyToOne(() => Category, category => category.articles, { cascade: true })
   @JoinTable()
   category?: Category;
 
-  @Field(type => [Tag], { nullable: true })
+  @Field(type => [Tag])
   @ManyToMany(() => Tag, tag => tag.articles, { cascade: true })
   @JoinTable()
   tags?: Tag[];
-
-  @Column('simple-enum', { enum: ['draft', 'publish'] })
-  status?: string;
-
-  @Column({ type: 'int', default: 0 })
-  views?: number;
-
-  @Column({ type: 'int', default: 0 })
-  likes?: number;
-
-  @Column({ type: 'boolean', default: false })
-  isRecommended?: boolean;
-
-  @Column({ type: 'text', default: null, select: false })
-  password?: string;
-
-  @Column({ type: 'boolean', default: false })
-  needPassword?: boolean;
-
-  @Column({ type: 'boolean', default: true })
-  isCommentable?: boolean;
-
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  publishAt?: Date;
 
   @CreateDateColumn({
     type: 'datetime',

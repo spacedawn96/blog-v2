@@ -3,14 +3,22 @@
 # ------------------------------------------------------
 
 type Article {
-  category: [Category!]
+  category: Category!
   content: String!
   cover: String!
   html: String!
+  isCommentable: Boolean!
+  isRecommended: Boolean!
+  likes: Int!
+  needPassword: Boolean!
+  password: String!
+  publishAt: String!
+  status: String!
   summary: String!
-  tags: [Tag!]
+  tags: [Tag!]!
   title: String!
   toc: String!
+  views: String!
 }
 
 type Category {
@@ -21,9 +29,9 @@ type Category {
 }
 
 input CreateArticleRequest {
-  category: String!
+  category: Int!
   status: String!
-  tags: [String!]!
+  tags: [Int!]!
   title: String!
 }
 
@@ -33,11 +41,6 @@ input CreateCategoryRequest {
 }
 
 input CreateTagRequest {
-  label: String!
-  value: String!
-}
-
-input FindCategoryRequest {
   label: String!
   value: String!
 }
@@ -89,7 +92,7 @@ type Mutation {
 type Query {
   findAll: [User!]!
   findAllArticle: [Article!]!
-  findAllCategory(input: FindCategoryRequest!): [Category!]!
+  findAllCategory(label: String!, value: String!): [Category!]!
   findAllTag(input: FindTagRequest!): [Tag!]!
   findArticlesByCategoryArticle(id: Int!): [Article!]!
   findArticlesByTagArticle(id: Int!): [Article!]!

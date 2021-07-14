@@ -1,10 +1,18 @@
-import { Field, ID, InputType, Int, ObjectType, PickType } from '@nestjs/graphql';
+import {
+  ArgsType,
+  Field,
+  ID,
+  InputType,
+  Int,
+  ObjectType,
+  PickType,
+} from '@nestjs/graphql';
 
-@InputType()
+@ArgsType()
 export class FindCategoryRequest {
   @Field()
-  label: string;
+  label?: string;
 
   @Field()
-  value: string;
+  value?: string;
 }

@@ -5,6 +5,7 @@ import { dateFormat } from '../../utils/date.util';
 import { TagService } from '../tag/tag.service';
 import { CategoryService } from '../category/category.service';
 import { Article } from './article.entity';
+import { CreateArticleRequest } from './dto/createArticle.dto';
 
 const Segment = require('segment');
 const segment = new Segment();
@@ -24,7 +25,7 @@ export class ArticleService {
     private readonly categoryService: CategoryService,
   ) {}
 
-  async create(article: Partial<Article>): Promise<Article> {
+  async create(article: CreateArticleRequest): Promise<Article> {
     const { title } = article;
     const exist = await this.articleRepository.findOne({ where: { title } });
 
@@ -40,13 +41,12 @@ export class ArticleService {
       });
     }
 
-    tags = await this.tagService.findByIds(('' + tags).split(','));
+    const AllTag = await this.tagService.findByIds(('' + tags).split(','));
     const existCategory = await this.categoryService.findById(category);
     const newArticle = await this.articleRepository.create({
       ...article,
       category: existCategory,
-      tags,
-      needPassword: !!article.password,
+      tags: AllTag,
     });
     await this.articleRepository.save(newArticle);
     return newArticle;

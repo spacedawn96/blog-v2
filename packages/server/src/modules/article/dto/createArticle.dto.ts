@@ -1,4 +1,4 @@
-import { IsDefined, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsDefined, IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Field, ID, InputType, Int, ObjectType } from '@nestjs/graphql';
 
 @InputType()
@@ -7,13 +7,13 @@ export class CreateArticleRequest {
   @IsNotEmpty()
   title: string;
 
-  @Field(type => [String])
+  @Field(type => [Int])
   @IsNotEmpty()
-  tags: any[];
+  tags: number[];
 
-  @Field(type => String)
+  @Field(type => Int)
   @IsNotEmpty()
-  category: any;
+  category: number;
 
   @Field()
   @IsNotEmpty()

@@ -26,7 +26,7 @@ export class CategoryResolver {
   }
 
   @Query(() => [Category])
-  findAllCategory(@Args('input') category: FindCategoryRequest): Promise<Category[]> {
+  findAllCategory(@Args() category: FindCategoryRequest): Promise<Category[]> {
     return this.categoryService.findAll(category);
   }
 
