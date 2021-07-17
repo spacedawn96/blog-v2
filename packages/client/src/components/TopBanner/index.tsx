@@ -59,15 +59,15 @@ function TopBanner(props: TopBannerProps) {
   return (
     <TopBannerTap>
       <div className="layout-wrapper">
-        {/* <Navbar items={data?.me ? item2 : item} Logo={Logo} color="#fff" /> */}
-        {/* {props.datas ? (
+        <Navbar items={data?.me ? item2 : item} Logo={Logo} color="#fff" />
+        {props.datas ? (
           <BarCenter>
             <Barlog>Dev Post</Barlog>
             <BarPost>{props.datas} ARTICLES</BarPost>
           </BarCenter>
         ) : (
           ''
-        )} */}
+        )}
       </div>
     </TopBannerTap>
   );

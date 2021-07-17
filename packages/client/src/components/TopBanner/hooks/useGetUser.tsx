@@ -1,5 +1,4 @@
 import { useQuery } from 'react-query';
-import { request, gql } from 'graphql-request';
 import { GraphQLClient } from 'graphql-request';
 import type { ClientError } from 'graphql-request';
 import { getUsersQuery } from '../../../lib/graphql/users';

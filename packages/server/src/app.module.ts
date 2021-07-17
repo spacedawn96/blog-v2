@@ -29,10 +29,9 @@ import { TagModule } from './modules/tag/tag.module';
         password: configService.get('DB_PASSWD', '1245'),
         database: configService.get('DB_DATABASE', 'blog'),
         // url: process.env.CLEARDB_DATABASE_URL,
-        charset: 'utf8mb4',
-        timezone: '+08:00',
         synchronize: true,
         keepConnectionAlive: true,
+        // dropSchema: true,
       }),
     }),
     GraphQLModule.forRoot({

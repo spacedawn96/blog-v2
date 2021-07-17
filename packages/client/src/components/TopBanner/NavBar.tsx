@@ -2,9 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { List, ListItem } from '../List';
 import Link from 'next/link';
-import media from '../../lib/styles/media';
+import media from 'src/styles/media';
 import useGetUser from './hooks/useGetUser';
-import { useQueryClient } from 'react-query';
 
 export const NavLogo = styled.div`
   width: 100%;
@@ -48,16 +47,13 @@ const LogoutButton = styled.div`
 `;
 
 export type NavbarProps = {
-  items?: string[];
-  Logo?: string;
+  items: string[];
+  Logo: string;
   color?: string;
 };
 
 function Navbar(props: NavbarProps) {
-  const queryClient = useQueryClient();
-  const { status, data, error, isFetching } = useGetUser();
-
-  console.log(data);
+  const { logoutButton, loading, data } = useGetUser();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -70,28 +66,29 @@ function Navbar(props: NavbarProps) {
   };
 
   return (
-    // <NavLogo>
-    //   <Link href="/">
-    //     <a>
-    //       <img alt="logo" src={props.Logo} />
-    //     </a>
-    //   </Link>
-    //   <div className="list-wrapper">
-    //     <List>
-    //       {props.items.map(list => (
-    //         <>
-    //           <Link href={`/${list}`} key={list}>
-    //             <ListItem items={list} color={props.color} />
-    //           </Link>
-    //         </>
-    //       ))}
-    //     </List>
-    //   </div>
-    // </NavLogo>
-
-    <>
-      <div>hello</div>
-    </>
+    <NavLogo>
+      <Link href="/">
+        <a>
+          <img alt="logo" src={props.Logo} />
+        </a>
+      </Link>
+      <div className="list-wrapper">
+        <List>
+          {props.items.map(list => (
+            <>
+              <Link href={`/${list}`} key={list}>
+                <ListItem items={list} color={props.color} />
+              </Link>
+            </>
+          ))}
+          {!loading && data.me ? (
+            <LogoutButton onClick={logoutButton}>logout</LogoutButton>
+          ) : (
+            ''
+          )}
+        </List>
+      </div>
+    </NavLogo>
   );
 }
 
