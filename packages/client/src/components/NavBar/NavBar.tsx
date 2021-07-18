@@ -46,6 +46,18 @@ const LogoutButton = styled.div`
   }
 `;
 
+const NavBarItemTap = styled.div``;
+
+export type NavBarItemProps = {};
+
+function NavBarItem(props: NavBarItemProps) {
+  return (
+    <Link href={`/${list}`} key={list}>
+      <ListItem items={list} color={props.color} />
+    </Link>
+  );
+}
+
 export type NavbarProps = {
   items: string[];
   Logo: string;
@@ -75,11 +87,7 @@ function Navbar(props: NavbarProps) {
       <div className="list-wrapper">
         <List>
           {props.items.map(list => (
-            <>
-              <Link href={`/${list}`} key={list}>
-                <ListItem items={list} color={props.color} />
-              </Link>
-            </>
+            <NavBarItem />
           ))}
           {!loading && data.me ? (
             <LogoutButton onClick={logoutButton}>logout</LogoutButton>

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NavLogo } from '../TopBanner/NavBar';
+import { NavLogo } from '../NavBar/NavBar';
 
 const ListItemTap = styled.div<{
   color?: string;

@@ -1,18 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import Navbar from './NavBar';
-import useGetUser from './hooks/useGetUser';
 import heightMedia from '../../lib/styles/height';
 import media from '../../lib/styles/media';
 
 export const Logo = require('./logo.png');
 
-const TopBannerTap = styled.div`
-  height: 42vh;
-  background: url('https://designmodo.com/wp-content/uploads/2020/06/google-analytics-ux.jpg')
-    no-repeat center;
-  background-size: cover;
-`;
+const ArticlesTap = styled.div``;
+
 const BarCenter = styled.div`
   ${heightMedia.custom(600)} {
     display: none;
@@ -46,31 +40,23 @@ const BarPost = styled(Barlog)`
   font-size: 20px;
 `;
 
-export type TopBannerProps = {
+export type ArticlesProps = {
   datas?: number;
 };
 
-export const item = ['login', 'register'];
-export const item2 = ['write', 'menu'];
-
-function TopBanner(props: TopBannerProps) {
-  const { data } = useGetUser();
-
+function Articles(props: ArticlesProps) {
   return (
-    <TopBannerTap>
-      <div className="layout-wrapper">
-        <Navbar items={data?.me ? item2 : item} Logo={Logo} color="#fff" />
-        {props.datas ? (
-          <BarCenter>
-            <Barlog>Dev Post</Barlog>
-            <BarPost>{props.datas} ARTICLES</BarPost>
-          </BarCenter>
-        ) : (
-          ''
-        )}
-      </div>
-    </TopBannerTap>
+    <ArticlesTap>
+      {props.datas ? (
+        <BarCenter>
+          <Barlog>Dev Post</Barlog>
+          <BarPost>{props.datas} ARTICLES</BarPost>
+        </BarCenter>
+      ) : (
+        ''
+      )}
+    </ArticlesTap>
   );
 }
 
-export default TopBanner;
+export default Articles;
