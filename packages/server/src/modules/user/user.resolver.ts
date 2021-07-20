@@ -13,7 +13,6 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from './user.service';
-import { User } from './user.entity';
 import { RolesGuard, Roles } from '../auth/roles.guard';
 import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard';
 import { RegisterResponseDto, RegisterRequestDto } from './dto/register.dto';
@@ -22,6 +21,7 @@ import { Resolver, Mutation, Query, Args, Directive, Context } from '@nestjs/gra
 import { GetUserInfoResponse } from './dto/getUserInfo.dto';
 import { CurrentUser } from '../common/decorators/user.decorator';
 import { AuthGuard } from '../auth/auth.gaurd';
+import { User } from './entity/user.entity';
 
 @Resolver(of => User)
 export class UserResolver {

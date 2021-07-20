@@ -6,11 +6,13 @@ import {
   UpdateDateColumn,
   BeforeInsert,
   Index,
+  OneToOne,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import * as bcrypt from 'bcryptjs';
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 import { IsEmail } from 'class-validator';
+import { UserProfile } from './UserProfile.entity';
 
 export enum IsAdminOrUser {
   ADMIN = 'admin',
@@ -39,10 +41,6 @@ export class User {
   password: string;
 
   @Field(type => String)
-  @Column({ length: 200, default: null })
-  bio: string;
-
-  @Field(type => String)
   @Index()
   @IsEmail()
   @Column({ length: 200, default: null })
@@ -55,6 +53,9 @@ export class User {
   @Field(type => Int)
   @Column('int', { default: 0 })
   tokenVersion!: number;
+
+  @OneToOne(type => UserProfile, profile => profile.user)
+  profile!: UserProfile;
 
   @Field(type => String)
   @Column({ type: 'enum', enum: IsAdminOrUser, default: IsAdminOrUser.USERS })

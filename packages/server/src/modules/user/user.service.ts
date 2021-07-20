@@ -2,7 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { getRepository, Repository } from 'typeorm';
-import { IsAdminOrUser, User } from './user.entity';
+import { IsAdminOrUser, User } from './entity/user.entity';
 
 @Injectable()
 export class UserService {
