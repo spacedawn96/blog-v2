@@ -12,5 +12,5 @@ export const fetchUsers = async (): Promise<any[]> => {
 };
 
 export default function useUsers() {
-  return useQuery<any[], ClientError>('findAll', fetchUsers);
+  return useQuery<any, ClientError>('findAll', fetchUsers);
 }

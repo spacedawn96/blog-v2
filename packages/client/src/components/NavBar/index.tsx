@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import Navbar from './NavBar';
 import useGetUser from './hooks/useGetUser';
 import heightMedia from '../../lib/styles/height';
 import media from '../../lib/styles/media';
+import Navbar from './NavBar';
 
 export const Logo = require('./logo.png');
 
@@ -43,19 +43,25 @@ const Barlog = styled.div`
 `;
 
 export type HeaderProps = {
-  datas?: number;
+  data?: number;
 };
 
 export const item = ['login', 'register'];
 export const item2 = ['write', 'menu'];
 
-function Header(props: HeaderProps) {
+function Header({}: HeaderProps) {
   const { data } = useGetUser();
 
   return (
     <HeaderTap>
       <div className="layout-wrapper">
-        <Navbar items={data?.me ? item2 : item} Logo={Logo} color="#fff" />
+        <Navbar
+          items={data?.me ? item2 : item}
+          Logo={Logo}
+          color="#fff"
+          data="a"
+          loading={true}
+        />
       </div>
     </HeaderTap>
   );

@@ -72,16 +72,8 @@ function Footer(props: FooterProps) {
                 patternUnits="userSpaceOnUse">
                 <circle fill="#be9ddf" cx="25" cy="25" r="3" />
               </pattern> */}
-              <style>
-                @import url("https://fonts.googleapis.com/css?
-                family=Lora:400,400i,700,700i");
-              </style>
             </defs>
-
-            <rect x="0" y="0" width="100%" height="100%" fill="url(#polka-dots)">
-              {' '}
-            </rect>
-
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#polka-dots)"></rect>
             <text x="50%" y="70%" textAnchor="middle">
               WoongBlog
             </text>

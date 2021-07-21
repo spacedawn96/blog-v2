@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
-    "heroku-postbuild": "npm run build",
+    "heroku-postbuild": "npm run build", 
     "lint": "next lint"
   },
   "dependencies": {
@@ -28,6 +28,7 @@
     "react-moment": "^1.1.1",
     "react-nextjs-toast": "^1.2.5",
     "react-query": "^3.18.1",
+    "react-spring": "^9.2.4",
     "react-toast-notifications": "^2.5.1",
     "styled-components": "^5.3.0"
   },

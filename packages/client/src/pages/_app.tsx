@@ -4,7 +4,6 @@ import 'nprogress/nprogress.css'; //styles of nprogress
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Hydrate } from 'react-query/hydration';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { ToastProvider } from 'react-toast-notifications';
 import React from 'react';
 
 //Binding events.

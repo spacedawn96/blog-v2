@@ -7,21 +7,42 @@ export type MainLayoutProps = {
   children: React.ReactNode;
 };
 
-export default function MainLayout(props: MainLayoutProps) {
-  return <div>{props.children}</div>;
-}
-
-export function LeftNav({ children }) {
-  return <div>{children}</div>;
-}
-export function CoenterCntent({ children }) {
+export default function MainLayout({ children }: MainLayoutProps) {
   return <div>{children}</div>;
 }
 
-export function RightContent({ children }) {
-  return <div>{children}</div>;
+export type MainProps = {
+  leftNav?: React.ReactNode;
+  centerContent?: React.ReactNode;
+  rightContent?: React.ReactNode;
+};
+
+export function Main(props: MainProps) {
+  return (
+    <>
+      {props.leftNav}
+      {props.centerContent}
+      {props.rightContent}
+    </>
+  );
 }
 
-MainLayout.LeftNav = LeftNav;
+export type ContentProps = {
+  children: React.ReactNode;
+};
+
+export function FirstContent({ children }: ContentProps) {
+  return <aside>{children}</aside>;
+}
+export function CoenterCntent({ children }: ContentProps) {
+  return <main>{children}</main>;
+}
+
+export function ThirdContent({ children }: ContentProps) {
+  return <aside>{children}</aside>;
+}
+
+MainLayout.Main = Main;
+MainLayout.FirstContent = FirstContent;
 MainLayout.CoenterCntent = CoenterCntent;
-MainLayout.RightContent = RightContent;
+MainLayout.ThirdContent = ThirdContent;
