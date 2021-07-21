@@ -9,8 +9,8 @@ export type ListProps = {
   children?: React.ReactNode;
 };
 
-function List(props: ListProps) {
-  return <ListTap>{props.children}</ListTap>;
+function List({ children }: ListProps) {
+  return <ListTap>{children}</ListTap>;
 }
 
 export default List;

@@ -1,9 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import { List, ListItem } from "../List";
-import Link from "next/link";
-import media from "../../lib/styles/media";
-import Image from "next/image";
+import React from 'react';
+import styled from 'styled-components';
+import { List, ListItem } from '../List';
+import Link from 'next/link';
+import media from '../../lib/styles/media';
+import Image from 'next/image';
+import logo from './logo.png';
 
 export const NavLogo = styled.div`
   width: 100%;
@@ -13,8 +14,8 @@ export const NavLogo = styled.div`
   line-height: 1.5;
   align-items: center;
   transition: background 0.25s;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica,
-    Arial, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+    sans-serif;
   ${media.custom(400)} {
     display: flex;
     flex-wrap: wrap;
@@ -53,15 +54,15 @@ export type NavBarItemProps = {
   color: any;
 };
 
-// function NavBarItem({ list, color }: NavBarItemProps) {
-//   return (
-//     <>
-//       <Link href={`/${list}`} key={list}>
-//         <ListItem items={list} color={color} />
-//       </Link>
-//     </>
-//   );
-// }
+function NavBarItem({ list, color }: NavBarItemProps) {
+  return (
+    <>
+      <Link href={`/${list}`} key={list}>
+        <ListItem items={list} color={color} />
+      </Link>
+    </>
+  );
+}
 
 export type NavbarProps = {
   items: string[];
@@ -84,22 +85,22 @@ function Navbar({ items, Logo, color, loading, data }: NavbarProps) {
 
   return (
     <NavLogo>
-      <Link href='/'>
-        {/* <a>
-          <Image alt="logo" src={Logo} />
-        </a> */}
+      <Link href="/">
+        <a>
+          <Image alt="logo" src={logo} />
+        </a>
       </Link>
-      <div className='list-wrapper'>
-        {/* <List>
+      <div className="list-wrapper">
+        <List>
           {items.map(list => (
-            <NavBarItem list={list} color="red" />
+            <NavBarItem list={list} color={color} key={list} />
           ))}
           {!loading && data.me ? (
             <LogoutButton onClick={logoutButton}>logout</LogoutButton>
           ) : (
             ''
           )}
-        </List> */}
+        </List>
       </div>
     </NavLogo>
   );

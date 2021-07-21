@@ -1,10 +1,10 @@
 import Router from 'next/router';
 import NProgress from 'nprogress'; //nprogress module
-import 'nprogress/nprogress.css'; //styles of nprogress
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Hydrate } from 'react-query/hydration';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import React from 'react';
+import '../styles/global.css';
 
 //Binding events.
 Router.events.on('routeChangeStart', () => NProgress.start());

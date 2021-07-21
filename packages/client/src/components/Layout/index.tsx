@@ -17,16 +17,6 @@ export type MainProps = {
   rightContent?: React.ReactNode;
 };
 
-export function Main(props: MainProps) {
-  return (
-    <>
-      {props.leftNav}
-      {props.centerContent}
-      {props.rightContent}
-    </>
-  );
-}
-
 export type ContentProps = {
   children: React.ReactNode;
 };
@@ -42,7 +32,6 @@ export function ThirdContent({ children }: ContentProps) {
   return <aside>{children}</aside>;
 }
 
-MainLayout.Main = Main;
 MainLayout.FirstContent = FirstContent;
 MainLayout.CoenterCntent = CoenterCntent;
 MainLayout.ThirdContent = ThirdContent;

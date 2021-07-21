@@ -3,5 +3,4 @@ module.exports = {
     ENDPOINT: '/',
     TOKEN: 'my-value',
   },
-  reactStrictMode: true,
 };

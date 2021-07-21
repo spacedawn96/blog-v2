@@ -9,11 +9,11 @@ export type MainPageTemplateProps = {
   children?: React.ReactNode;
 };
 
-function MainPageTemplate(props: MainPageTemplateProps) {
+function MainPageTemplate({ children }: MainPageTemplateProps) {
   return (
     <div>
       <Header />
-      {props.children}
+      {children}
       <Footer />
     </div>
   );

@@ -1,10 +1,12 @@
 import React from 'react';
-import { toast, ToastContainer } from 'react-nextjs-toast';
 
 import styled from 'styled-components';
+import MainLayout from '../components/Layout';
 import MainPageTemplate from '../components/Template';
 
-const MainTitleTap = styled.div``;
+const MainTitleTap = styled.div`
+  color: red;
+`;
 
 export type MainTitleProps = {
   mainTitle: string;
@@ -18,7 +20,12 @@ export default function Home() {
   return (
     <>
       <MainPageTemplate>
-        <div>hello</div>
+        <MainLayout.FirstContent>
+          <div>hello</div>
+        </MainLayout.FirstContent>
+        <MainLayout.CoenterCntent>
+          <div>hello2</div>
+        </MainLayout.CoenterCntent>
       </MainPageTemplate>
     </>
   );
